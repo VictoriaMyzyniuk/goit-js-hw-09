@@ -1,9 +1,9 @@
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
-startBtn = document.querySelector('[data-start]');
-stopBtn = document.querySelector('[data-stop]');
-bodyEl = document.querySelector('body');
+const startBtn = document.querySelector('[data-start]');
+const stopBtn = document.querySelector('[data-stop]');
+const bodyEl = document.querySelector('body');
 
 startBtn.addEventListener('click', startChangeColor);
 stopBtn.addEventListener('click', stopChangeColor);
