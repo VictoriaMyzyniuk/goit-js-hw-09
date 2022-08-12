@@ -8,6 +8,7 @@ const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minsEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
+const img = document.querySelector('.timer');
 
 input.addEventListener('input', onInputChange);
 startBtn.addEventListener('click', onButtonClick);
@@ -22,20 +23,26 @@ const options = {
   },
 };
 
-// document.getElementById('button').addEventListener('click', () => {
-//   fp.set('enableTime', !fp.enableTime);
-// });
-
+let intervalId = null;
 const timer = {
   start() {
     const startTime = userSelectedDate;
 
-    setInterval(() => {
+    intervalId = setInterval(() => {
       const currentTime = Date.now();
-      let diffOfTime = startTime - currentTime;
+
+      let diffOfTime = startTime.getTime() - currentTime;
+      if (diffOfTime <= 0) {
+        timer.stop();
+        return;
+      }
       let timeComponents = convertMs(diffOfTime);
       updateClockFace(timeComponents);
     }, 1000);
+  },
+
+  stop() {
+    clearInterval(intervalId);
   },
 };
 
@@ -59,7 +66,6 @@ function convertMs(ms) {
   const seconds = addLeadingZero(
     Math.floor((((ms % day) % hour) % minute) / second)
   );
-
   return { days, hours, minutes, seconds };
 }
 
@@ -69,10 +75,8 @@ function addLeadingZero(value) {
 
 let userSelectedDate = 0;
 
-function onInputChange() {
-  fp.selectedDates.push(input.value);
-
-  if (options.defaultDate >= fp.selectedDates[0]) {
+function onInputChange(e) {
+  if (options.defaultDate > fp.selectedDates[0]) {
     Notiflix.Notify.failure('Please, choose a date in the future');
   } else {
     startBtn.disabled = false;
@@ -83,7 +87,6 @@ function onInputChange() {
 function onButtonClick() {
   timer.start();
   startBtn.disabled = true;
-  fp.set('enableTime', !fp.enableTime);
 }
 
 function updateClockFace({ days, hours, minutes, seconds }) {
