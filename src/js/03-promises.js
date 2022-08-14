@@ -9,7 +9,6 @@ formEl.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  createPromise();
   sortingPromises();
 }
 
