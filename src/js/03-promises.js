@@ -10,7 +10,7 @@ formEl.addEventListener('submit', onFormSubmit);
 function onFormSubmit(e) {
   e.preventDefault();
   createPromise();
-  sortingPrimises();
+  sortingPromises();
 }
 
 function createPromise(position, delay) {
@@ -27,7 +27,7 @@ function createPromise(position, delay) {
   });
 }
 
-function sortingPrimises() {
+function sortingPromises() {
   let userSelectedDelay = +delayEl.value;
   let userSelectedStep = +stepEl.value;
   let userSelectedAmount = +amountEl.value;
