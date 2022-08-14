@@ -8,7 +8,6 @@ const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minsEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
-const img = document.querySelector('.timer');
 
 input.addEventListener('input', onInputChange);
 startBtn.addEventListener('click', onButtonClick);
